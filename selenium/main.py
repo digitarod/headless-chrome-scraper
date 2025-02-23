@@ -1,16 +1,13 @@
-from get_chrome_driver import GetChromeDriver
 from selenium import webdriver
+from selenium.webdriver.chrome.options import Options
 
-get_driver = GetChromeDriver()
-get_driver.install()
+options = Options()
+options.add_argument("--headless")  # ヘッドレスモード
+options.add_argument("--no-sandbox")
+options.add_argument("--disable-dev-shm-usage")
 
-def driver_init():
-    options = webdriver.ChromeOptions()
-    options.add_argument('--headless')
-    return webdriver.Chrome(options=options)
+driver = webdriver.Chrome(options=options)
+driver.get("https://www.google.com")
+print(driver.title)
 
-driver = driver_init()
-driver.get('https://hashito.biz/')
-print(driver.find_element_by_xpath('/html/body/div[1]/div/section/div/div/h2').text)
-print(driver.current_url)
 driver.quit()
