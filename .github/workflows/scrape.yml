@@ -1,5 +1,6 @@
 name: selenium-github-actions
 on: [push]
+
 jobs:
   selenium:
     runs-on: ubuntu-latest
@@ -9,7 +10,10 @@ jobs:
         with:
           python-version: '3.8'
           architecture: 'x64'
-      - run: |
-          pip install get-chrome-driver --upgrade
+      - name: Install dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y chromium-browser
           pip install -r selenium/requirements.txt
-          python selenium/main.py
+      - name: Run Selenium script
+        run: python selenium/main.py
