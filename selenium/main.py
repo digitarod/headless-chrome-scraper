@@ -34,6 +34,8 @@ pass_box.send_keys(input_text)
 submit_button = driver.find_element(By.NAME, "submit")
 submit_button.click()
 time.sleep(5) # 5秒間待機
+
+driver.get("https://room.rakuten.co.jp/")
 print(driver.title)
 
 driver.quit()
