@@ -1,7 +1,6 @@
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
-from selenium.webdriver.common.by import By
-import time
+from selenium.webdriver.chrome.service import Service
 
 def scrape():
     options = Options()
@@ -9,13 +8,14 @@ def scrape():
     options.add_argument("--no-sandbox")
     options.add_argument("--disable-dev-shm-usage")
     
-    driver = webdriver.Chrome(options=options)
+    # 明示的にChromeのパスを指定
+    options.binary_location = "/usr/bin/google-chrome"
+
+    service = Service("/usr/bin/chromedriver")
+    driver = webdriver.Chrome(service=service, options=options)
+
     driver.get("https://example.com")  # ここにスクレイピング対象のURLを指定
-    
-    time.sleep(2)  # ページ読み込み待機
-    
-    title = driver.find_element(By.TAG_NAME, "h1").text  # h1タグのテキストを取得
-    print(f"Page Title: {title}")
+    print("Page Title:", driver.title)
     
     driver.quit()
 
