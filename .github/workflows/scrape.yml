@@ -22,8 +22,9 @@ jobs:
         run: |
           pip install selenium
           sudo apt update
+          sudo apt install -y google-chrome-stable
           sudo apt install -y chromium-chromedriver
-          echo 'export PATH=$PATH:/usr/lib/chromium-browser/' >> $GITHUB_ENV
+          echo 'export PATH=$PATH:/usr/bin/' >> $GITHUB_ENV
 
       - name: Run Scraper
         run: python scraper.py
