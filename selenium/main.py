@@ -12,7 +12,7 @@ options.add_argument("--disable-dev-shm-usage")
 service = Service(ChromeDriverManager().install())
 driver = webdriver.Chrome(service=service, options=options)
 
-driver.get("https://www.google.com")
+driver.get("https://news.yahoo.co.jp/pickup/6530325")
 print(driver.title)
 
 driver.quit()
