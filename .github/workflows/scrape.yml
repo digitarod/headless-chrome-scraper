@@ -1,0 +1,29 @@
+name: Scrape Website
+
+on:
+  schedule:
+    - cron: '0 * * * *'  # 毎時実行
+  workflow_dispatch:
+
+jobs:
+  scrape:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.9'
+
+      - name: Install Dependencies
+        run: |
+          pip install selenium
+          sudo apt update
+          sudo apt install -y chromium-chromedriver
+          echo 'export PATH=$PATH:/usr/lib/chromium-browser/' >> $GITHUB_ENV
+
+      - name: Run Scraper
+        run: python scraper.py
