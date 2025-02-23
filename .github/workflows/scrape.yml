@@ -1,30 +1,15 @@
-name: Scrape Website
-
-on:
-  schedule:
-    - cron: '0 * * * *'  # 毎時実行
-  workflow_dispatch:
-
+name: selenium-github-actions
+on: [push]
 jobs:
-  scrape:
+  selenium:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v3
-
-      - name: Set up Python
-        uses: actions/setup-python@v4
+      - uses: actions/checkout@v2
+      - uses: actions/setup-python@v2
         with:
-          python-version: '3.9'
-
-      - name: Install Dependencies
-        run: |
-          pip install selenium
-          sudo apt update
-          sudo apt install -y google-chrome-stable
-          sudo apt install -y chromium-chromedriver
-          echo 'export PATH=$PATH:/usr/bin/' >> $GITHUB_ENV
-
-      - name: Run Scraper
-        run: python scraper.py
+          python-version: '3.8'
+          architecture: 'x64'
+      - run: |
+          pip install get-chrome-driver --upgrade
+          pip install -r selenium/requirements.txt
+          python selenium/main.py
