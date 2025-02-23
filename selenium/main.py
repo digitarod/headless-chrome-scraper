@@ -12,7 +12,24 @@ options.add_argument("--disable-dev-shm-usage")
 service = Service(ChromeDriverManager().install())
 driver = webdriver.Chrome(service=service, options=options)
 
-driver.get("https://news.yahoo.co.jp/pickup/6530325")
+driver.get(url='https://grp03.id.rakuten.co.jp/rms/nid/login') # URLにアクセス
+
+# 指定したname属性のテキストボックスに文字を入力する
+# 要素をIDで取得
+user_box = driver.find_element(By.ID, "loginInner_u")
+
+# テキストを入力
+input_text = "affilinno@gmail.com"
+user_box.send_keys(input_text)
+
+pass_box = driver.find_element(By.ID, "loginInner_p")
+
+# テキストを入力
+input_text = "@FF1l1nn0"
+pass_box.send_keys(input_text)
+
+submit_button = driver.find_element(By.NAME, "submit")
+submit_button.click()
 print(driver.title)
 
 driver.quit()
